@@ -1,15 +1,15 @@
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:padc_custom_widget_assignment/custom_components/composite_custom_view/smart_list_view.dart';
 import 'package:padc_custom_widget_assignment/custom_components/custom_paints/custom_paint_circle.dart';
-import 'package:padc_custom_widget_assignment/home_page.dart';
 import 'package:padc_custom_widget_assignment/utils/Strings.dart';
 import 'package:padc_custom_widget_assignment/utils/colors.dart';
 import 'package:padc_custom_widget_assignment/utils/dimens.dart';
 import 'package:padc_custom_widget_assignment/utils/images.dart';
 import 'package:padc_custom_widget_assignment/widgets/icon_view.dart';
 import 'package:padc_custom_widget_assignment/widgets/patients_profile_view.dart';
+
+import 'custom_components/my_patients_list.dart';
+import 'custom_components/smart_list_view.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({Key? key}) : super(key: key);
@@ -107,13 +107,19 @@ class ToDoWorkTimeView extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(DETAILS_PAGE_TIME,
+        Text(
+          DETAILS_PAGE_TIME,
           style: GoogleFonts.inter(
-              fontWeight: FontWeight.w500, color: Colors.white, fontSize: TEXT_40X),
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+              fontSize: TEXT_40X),
         ),
-        Text(DETAILS_PAGE_TIME_PM,
+        Text(
+          DETAILS_PAGE_TIME_PM,
           style: GoogleFonts.inter(
-              fontWeight: FontWeight.w400, color: Colors.white, fontSize: TEXT_25X),
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+              fontSize: TEXT_25X),
         ),
       ],
     );
@@ -214,13 +220,19 @@ class OfficeNameAndTotalPatientsColumnView extends StatelessWidget {
           const SizedBox(
             height: SIZE_30X,
           ),
-          Text(DETAILS_PAGE_OFFICE_NUMBER_TEXT,
+          Text(
+            DETAILS_PAGE_OFFICE_NUMBER_TEXT,
             style: GoogleFonts.inter(
-                fontSize: TEXT_17X, color: Colors.white, fontWeight: FontWeight.w600),
+                fontSize: TEXT_17X,
+                color: Colors.white,
+                fontWeight: FontWeight.w600),
           ),
-          Text(DETAILS_PAGE_TOTAL_PATIENTS_TEXT,
+          Text(
+            DETAILS_PAGE_TOTAL_PATIENTS_TEXT,
             style: GoogleFonts.inter(
-                fontSize: TEXT_15X, color: Colors.grey, fontWeight: FontWeight.w600),
+                fontSize: TEXT_15X,
+                color: Colors.grey,
+                fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -235,7 +247,8 @@ class TitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(DETAILS_PAGE_TITLE_TEXT,
+    return Text(
+      DETAILS_PAGE_TITLE_TEXT,
       style: GoogleFonts.inter(
           fontWeight: FontWeight.w600, color: Colors.white, fontSize: TEXT_20X),
     );
@@ -309,17 +322,22 @@ class ToDoListView extends StatelessWidget {
         SizedBox(
           height: SIZE_180X,
           child: SmartListView(
-              itemCount: 5,
-              padding: const EdgeInsets.symmetric(horizontal: MARGIN_25X),
-              itemBuilder: (context, index) {
-                return const MyPatientsList(
-                  isDetails: true,
-                );
-              },
-              scrollDirection: Axis.horizontal,
-              onListEndReached: () => _showSnackBar(context),
+            itemCount: 5,
+            padding: const EdgeInsets.symmetric(horizontal: MARGIN_25X),
+            itemBuilder: (context, index) {
+              return const MyPatientsList(
+                isDetails: true,
+                borderRadius: SIZE_10X,
+                color: Colors.white,
+                width: SIZE_280X,
+                padding: MARGIN_15X,
+                cardElevation: 1,
+              );
+            },
+            scrollDirection: Axis.horizontal,
+            onListEndReached: () => _showSnackBar(context),
             onEmptyList: () => debugPrint(EMPTY_LIST_TEXT),
-              ),
+          ),
         ),
         const SizedBox(
           height: SIZE_40X,
@@ -333,7 +351,8 @@ class ToDoListView extends StatelessWidget {
       SnackBar(
         duration: const Duration(seconds: 1),
         backgroundColor: PRIMARY_COLOR,
-        content: Text(END_LIST_DIALOG_TEXt,
+        content: Text(
+          END_LIST_DIALOG_TEXt,
           style: GoogleFonts.inter(
               color: Colors.white, fontWeight: FontWeight.w600),
         ),

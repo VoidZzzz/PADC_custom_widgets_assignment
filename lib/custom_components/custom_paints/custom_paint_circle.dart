@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:padc_custom_widget_assignment/utils/colors.dart';
 import '../../utils/dimens.dart';
 
-class CustomPaintCircle extends CustomPainter {
+class CustomPainterCircle extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var outerCirclePaint = Paint()
@@ -27,14 +27,22 @@ class CustomPaintCircle extends CustomPainter {
       ..strokeWidth = 3.0
       ..style = PaintingStyle.stroke;
 
+    /// Outer Circle
     canvas.drawCircle(
         Offset(size.height / 2, size.width / 2), 150, outerCirclePaint);
+
+    /// Inner Circle
     canvas.drawCircle(
         Offset(size.height / 2, size.width / 2), 145, innerCirclePaint);
+
+    /// Middle Circle
     canvas.drawCircle(
         Offset(size.height / 2, size.width / 2), 90, middleCirclePaint);
+
+    /// Middle Line Through
     canvas.drawLine(const Offset(260, 150), const Offset(320, 150), linePaint);
 
+    /// Dotted Circle
     var dottedCirclePaint = Paint()..color = Colors.white;
     int numberOfDots = 20;
     final double centerX = size.width / 2;
@@ -63,10 +71,9 @@ class CustomCirclePaint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: SIZE_300X,
-      width: SIZE_300X,
       child: CustomPaint(
-        painter: CustomPaintCircle(),
+        size: const Size(SIZE_300X, SIZE_300X),
+        painter: CustomPainterCircle(),
       ),
     );
   }

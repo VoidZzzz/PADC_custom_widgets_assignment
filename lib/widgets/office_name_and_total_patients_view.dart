@@ -22,7 +22,7 @@ class OfficeNameAndTotalPatientsView extends StatelessWidget {
         Text(
           "8:30 AM - 02:00 PM",
           style: GoogleFonts.inter(
-              color: Colors.black38, fontWeight: FontWeight.w500),
+              color: Colors.black38, fontSize: TEXT_13X, fontWeight: FontWeight.w500),
         ),
       ],
     );

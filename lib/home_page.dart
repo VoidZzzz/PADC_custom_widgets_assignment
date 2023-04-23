@@ -2,7 +2,6 @@ import 'package:badges/badges.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:padc_custom_widget_assignment/custom_components/composite_custom_view/smart_list_view.dart';
 import 'package:padc_custom_widget_assignment/details_page.dart';
 import 'package:padc_custom_widget_assignment/utils/Strings.dart';
 import 'package:padc_custom_widget_assignment/utils/colors.dart';
@@ -10,6 +9,9 @@ import 'package:padc_custom_widget_assignment/utils/dimens.dart';
 import 'package:padc_custom_widget_assignment/utils/images.dart';
 import 'package:padc_custom_widget_assignment/widgets/office_name_and_total_patients_view.dart';
 import 'package:padc_custom_widget_assignment/widgets/patients_profile_view.dart';
+import 'custom_components/my_patients_list.dart';
+import 'custom_components/smart_list_view.dart';
+import 'custom_components/time_and_events_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -60,11 +62,18 @@ class _HomePageState extends State<HomePage> {
                     height: SIZE_100X,
                     child: SmartListView(
                       itemCount: 5,
-                      padding: const EdgeInsets.symmetric(horizontal: MARGIN_25X),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: MARGIN_25X),
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
                           onTap: () => _navigateToDetailsScreen(context),
-                          child: const MyPatientsList(),
+                          child: const MyPatientsList(
+                            borderRadius: SIZE_5X,
+                            color: SECONDARY_COLOR,
+                            width: SIZE_200X,
+                            cardElevation: 1,
+                            padding: MARGIN_10X,
+                          ),
                         );
                       },
                       scrollDirection: Axis.horizontal,
@@ -79,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                         child: SizedBox(
                           height: SIZE_540X,
                           child: SmartListView(
-                            itemCount: 10,
+                            itemCount: timeList.length,
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.vertical,
                             onListEndReached: () => _showSnackBar(context),
@@ -143,39 +152,6 @@ class _HomePageState extends State<HomePage> {
     return Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const DetailsPage(),
-      ),
-    );
-  }
-}
-
-class TimeAndEventsView extends StatelessWidget {
-  const TimeAndEventsView(
-      {Key? key,
-      required this.layerLink,
-      required this.timeList,
-      required this.index})
-      : super(key: key);
-
-  final LayerLink layerLink;
-  final List<List<String>> timeList;
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: (index == 0) ? Colors.white.withOpacity(0.1) : Colors.black12,
-      height: (index == 0) ? SIZE_150X : SIZE_80X,
-      child: Column(
-        children: [
-          TimeEventsTitleView(
-            layerLink: layerLink,
-            index: index,
-          ),
-          DateTimeDottedLineAndEventsCardView(
-            timeList: timeList,
-            index: index,
-          ),
-        ],
       ),
     );
   }
@@ -342,7 +318,7 @@ class EventsCardView extends StatelessWidget {
                 ),
                 SubtitleView(
                   isDetails: false,
-                  color: (index == 0) ? Colors.black12 : Colors.grey,
+                  color: (index == 0) ? Colors.black26 : Colors.grey,
                 )
               ],
             ),
@@ -363,7 +339,7 @@ class PatientNameView extends StatelessWidget {
     return Text(
       HOME_PAGE_PATIENT_NAME_TEXT,
       style: GoogleFonts.inter(
-          color: (index == 0) ? Colors.black12 : Colors.black,
+          color: (index == 0) ? Colors.black26 : Colors.black,
           fontWeight: FontWeight.w600),
     );
   }
@@ -691,65 +667,6 @@ class BackGroundColorView extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class MyPatientsList extends StatelessWidget {
-  final bool isDetails;
-
-  const MyPatientsList({Key? key, this.isDetails = false}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: MARGIN_8X),
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: isDetails
-              ? BorderRadius.circular(MARGIN_8X)
-              : BorderRadius.circular(MARGIN_6X),
-        ),
-        elevation: MARGIN_1X,
-        child: Container(
-          width: isDetails ? SIZE_280X : SIZE_200X,
-          decoration:
-              BoxDecoration(color: isDetails ? Colors.white : SECONDARY_COLOR),
-          child: Padding(
-            padding: isDetails
-                ? const EdgeInsets.symmetric(horizontal: MARGIN_15X)
-                : const EdgeInsets.symmetric(horizontal: MARGIN_10X),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TitleView(
-                  isDetails: isDetails,
-                ),
-                const SizedBox(
-                  height: MARGIN_8X,
-                ),
-                SubtitleView(
-                  isDetails: isDetails,
-                  color: Colors.white70,
-                ),
-                const SizedBox(
-                  height: MARGIN_8X,
-                ),
-                Visibility(
-                  visible: isDetails,
-                  child: const DescriptionView(),
-                ),
-                const SizedBox(
-                  height: MARGIN_8X,
-                ),
-                PatientsAndCheckRowView(isDetails: isDetails)
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
